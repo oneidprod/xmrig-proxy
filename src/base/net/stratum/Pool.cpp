@@ -36,6 +36,10 @@
 #   include "base/net/stratum/EthStratumClient.h"
 #endif
 
+#ifdef XMRIG_ALGO_EQUIHASH
+#   include "base/net/stratum/EquihashStratumClient.h"
+#endif
+
 
 #ifdef XMRIG_FEATURE_HTTP
 #   include "base/net/stratum/DaemonClient.h"
@@ -226,8 +230,17 @@ xmrig::IClient *xmrig::Pool::createClient(int id, IClientListener *listener) con
     IClient *client = nullptr;
 
     if (m_mode == MODE_POOL) {
-#       if defined XMRIG_ALGO_KAWPOW || defined XMRIG_ALGO_GHOSTRIDER
+#       if defined XMRIG_ALGO_EQUIHASH || defined XMRIG_ALGO_KAWPOW || defined XMRIG_ALGO_GHOSTRIDER
         const uint32_t f = m_algorithm.family();
+#       endif
+
+#       ifdef XMRIG_ALGO_EQUIHASH
+        if (f == Algorithm::EQUIHASH) {
+            client = new EquihashStratumClient(id, Platform::userAgent(), listener);
+        }
+        else
+#       endif
+#       if defined XMRIG_ALGO_KAWPOW || defined XMRIG_ALGO_GHOSTRIDER
         if ((f == Algorithm::KAWPOW) || (f == Algorithm::GHOSTRIDER) || (m_coin == Coin::RAVEN)) {
             client = new EthStratumClient(id, Platform::userAgent(), listener);
         }

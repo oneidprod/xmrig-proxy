@@ -259,6 +259,19 @@ if (WITH_KAWPOW OR WITH_GHOSTRIDER)
 endif()
 
 
+if (WITH_EQUIHASH)
+    add_definitions(/DXMRIG_ALGO_EQUIHASH)
+
+    list(APPEND HEADERS_BASE
+        src/base/net/stratum/EquihashStratumClient.h
+        )
+
+    list(APPEND SOURCES_BASE
+        src/base/net/stratum/EquihashStratumClient.cpp
+        )
+endif()
+
+
 if (WITH_RANDOMX AND WITH_BENCHMARK)
     add_definitions(/DXMRIG_FEATURE_BENCHMARK)
 

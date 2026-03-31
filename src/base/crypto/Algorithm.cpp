@@ -102,6 +102,14 @@ const char* Algorithm::kGHOSTRIDER      = "ghostrider";
 const char* Algorithm::kGHOSTRIDER_RTM  = "ghostrider";
 #endif
 
+#ifdef XMRIG_ALGO_EQUIHASH
+const char *Algorithm::kEQUIHASH        = "equihash";
+const char *Algorithm::kEQUIHASH_192_7  = "equihash/192,7";
+const char *Algorithm::kEQUIHASH_200_9  = "equihash/200,9";
+const char *Algorithm::kEQUIHASH_210_9  = "equihash/210,9";
+const char *Algorithm::kEQUIHASH_144_5  = "equihash/144,5";
+#endif
+
 
 #define ALGO_NAME(ALGO)         { Algorithm::ALGO, Algorithm::k##ALGO }
 #define ALGO_ALIAS(ALGO, NAME)  { NAME, Algorithm::ALGO }
@@ -164,6 +172,13 @@ static const std::map<uint32_t, const char *> kAlgorithmNames = {
 
 #   ifdef XMRIG_ALGO_GHOSTRIDER
     ALGO_NAME(GHOSTRIDER_RTM),
+#   endif
+
+#   ifdef XMRIG_ALGO_EQUIHASH
+    ALGO_NAME(EQUIHASH_192_7),
+    ALGO_NAME(EQUIHASH_200_9),
+    ALGO_NAME(EQUIHASH_210_9),
+    ALGO_NAME(EQUIHASH_144_5),
 #   endif
 };
 
@@ -283,6 +298,14 @@ static const std::map<const char *, Algorithm::Id, aliasCompare> kAlgorithmAlias
     ALGO_ALIAS_AUTO(GHOSTRIDER_RTM), ALGO_ALIAS(GHOSTRIDER_RTM, "ghostrider/rtm"),
                                      ALGO_ALIAS(GHOSTRIDER_RTM, "gr"),
 #   endif
+
+#   ifdef XMRIG_ALGO_EQUIHASH
+    ALGO_ALIAS_AUTO(EQUIHASH_192_7), ALGO_ALIAS(EQUIHASH_192_7, "equihash/192_7"),
+                                     ALGO_ALIAS(EQUIHASH_192_7, "equihash"),
+    ALGO_ALIAS_AUTO(EQUIHASH_200_9), ALGO_ALIAS(EQUIHASH_200_9, "equihash/200_9"),
+    ALGO_ALIAS_AUTO(EQUIHASH_210_9), ALGO_ALIAS(EQUIHASH_210_9, "equihash/210_9"),
+    ALGO_ALIAS_AUTO(EQUIHASH_144_5), ALGO_ALIAS(EQUIHASH_144_5, "equihash/144_5"),
+#   endif
 };
 
 
@@ -357,7 +380,8 @@ std::vector<xmrig::Algorithm> xmrig::Algorithm::all(const std::function<bool(con
         RX_0, RX_V2, RX_WOW, RX_ARQ, RX_GRAFT, RX_SFX, RX_YADA,
         AR2_CHUKWA, AR2_CHUKWA_V2, AR2_WRKZ,
         KAWPOW_RVN,
-        GHOSTRIDER_RTM
+        GHOSTRIDER_RTM,
+        EQUIHASH_192_7, EQUIHASH_200_9, EQUIHASH_210_9, EQUIHASH_144_5,
     };
 
     Algorithms out;

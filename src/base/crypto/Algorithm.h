@@ -83,6 +83,13 @@ public:
         AR2_CHUKWA_V2   = 0x61140000,   // "argon2/chukwav2"  Argon2id (Chukwa v2).
         AR2_WRKZ        = 0x61120000,   // "argon2/wrkz"      Argon2id (WRKZ)
         KAWPOW_RVN      = 0x6b0f0000,   // "kawpow/rvn"       KawPow (RVN)
+
+#   ifdef XMRIG_ALGO_EQUIHASH
+        EQUIHASH_192_7  = 0x65010000,   // "equihash/192,7"   ZER, ZEL
+        EQUIHASH_200_9  = 0x65020000,   // "equihash/200,9"   ZEC, ZEN
+        EQUIHASH_210_9  = 0x65030000,   // "equihash/210,9"   ZEC variant
+        EQUIHASH_144_5  = 0x65040000,   // "equihash/144,5"   BEAM, BTG
+#   endif
     };
 
     enum Family : uint32_t {
@@ -96,7 +103,8 @@ public:
         RANDOM_X        = 0x72000000,
         ARGON2          = 0x61000000,
         KAWPOW          = 0x6b000000,
-        GHOSTRIDER      = 0x6c000000
+        GHOSTRIDER      = 0x6c000000,
+        EQUIHASH        = 0x65000000,
     };
 
     static const char *kINVALID;
@@ -163,6 +171,14 @@ public:
 #   ifdef XMRIG_ALGO_GHOSTRIDER
     static const char* kGHOSTRIDER;
     static const char* kGHOSTRIDER_RTM;
+#   endif
+
+#   ifdef XMRIG_ALGO_EQUIHASH
+    static const char *kEQUIHASH;
+    static const char *kEQUIHASH_192_7;
+    static const char *kEQUIHASH_200_9;
+    static const char *kEQUIHASH_210_9;
+    static const char *kEQUIHASH_144_5;
 #   endif
 
     inline Algorithm() = default;

@@ -37,6 +37,15 @@ xmrig::JobResult::JobResult(int64_t id, const char *jobId, const char *nonce, co
     extra_nonce(extra_nonce),
     jobId(jobId)
 {
+#   ifdef XMRIG_ALGO_EQUIHASH
+    if (algorithm.family() == Algorithm::EQUIHASH) {
+        // Equihash shares carry the solution in result (variable length).
+        // Difficulty is checked by the pool; proxy treats any non-null result as valid.
+        m_actualDiff = UINT64_MAX;
+        return;
+    }
+#   endif
+
     if (result && strlen(result) == 64) {
         uint64_t target = 0;
         Cvt::fromHex(reinterpret_cast<uint8_t *>(&target), sizeof(target), result + 48, 16);
